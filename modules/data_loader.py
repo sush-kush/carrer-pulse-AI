@@ -30,14 +30,16 @@ warnings.filterwarnings("ignore")
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PATH = str(_PROJECT_ROOT / "indian-job-market-dataset-2025.xlsx")
 
-# ── Remote URL (optional) ─────────────────────────────────────────────────────
-# Priority: st.secrets["DATA_URL"] > env var DATA_URL > local file
+# ── Remote URL ────────────────────────────────────────────────────────────────
+# Priority: st.secrets["DATA_URL"] > env var DATA_URL > hardcoded release URL
+_RELEASE_URL = "https://github.com/sush-kush/carrer-pulse-AI/releases/download/v1.0/indian-job-market-dataset-2025.xlsx"
+
 def _get_data_url() -> str | None:
     try:
         return st.secrets["DATA_URL"]
     except Exception:
         pass
-    return os.environ.get("DATA_URL")
+    return os.environ.get("DATA_URL") or _RELEASE_URL
 
 
 # ── Column constants ─────────────────────────────────────────────────────────
